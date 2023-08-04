@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
 import { Typography, Box, Stack } from "@mui/material";
@@ -7,14 +7,22 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { Videos, Loader } from "./";
 import { fetchFromAPI } from "../utils/fetchFromAPI";
 
+import { appContext } from "../context";
+
 const VideoDetail = () => {
+  // const { setHistory} = useContext(appContext);
   const [videoDetail, setVideoDetail] = useState(null);
   const [videos, setVideos] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
     fetchFromAPI(`videos?part=snippet,statistics&id=${id}`)
-      .then((data) => setVideoDetail(data.items[0]))
+    .then((data) => {
+      setVideoDetail(data.items[0])
+      let prevValue = JSON.parse(localStorage.getItem("history"));
+      let filteredPrevValue = prevValue?.filter((item) => item.id !== data.items[0].id);
+      localStorage.setItem("history", JSON.stringify([...filteredPrevValue, data.items[0]]));
+    })
 
     fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`)
       .then((data) => setVideos(data.items))

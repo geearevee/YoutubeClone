@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Stack } from "@mui/material";
-
+import  { useNavigate } from "react-router-dom";
 import { categories } from "../utils/constants";
-
-const Categories = ({ selectedCategory, setSelectedCategory }) => (
-  <Stack
+import { appContext } from "../context";
+const Categories = () => {
+  const navigate = useNavigate();
+  const {selectedCategory, setSelectedCategory} = useContext(appContext);
+  return (
+    <Stack
     direction="row"
     sx={{
       overflowY: "auto",
@@ -12,10 +15,26 @@ const Categories = ({ selectedCategory, setSelectedCategory }) => (
       flexDirection: { md: "column" },
     }}
   >
+    <button
+        onClick={() => {
+          navigate("/history")
+        }}
+        className="category-btn"
+        style={{
+          background: "white",
+          color: "black",
+          backgroundColor: "white",
+        }}
+      >
+        <span >
+          History
+        </span>
+        
+      </button>
     {categories.map((category) => (
       <button
         className="category-btn"
-        onClick={() => setSelectedCategory(category.name)}
+        onClick={() => {setSelectedCategory(category.name); navigate("/");}}
         style={{
           background: category.name === selectedCategory && "#FC1503",
           color: "white",
@@ -31,6 +50,7 @@ const Categories = ({ selectedCategory, setSelectedCategory }) => (
       </button>
     ))}
   </Stack>
-);
+  )
+};
 
 export default Categories;

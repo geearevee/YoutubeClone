@@ -1,12 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 
 import { fetchFromAPI } from "../utils/fetchFromAPI";
 import { Videos, Sidebar } from "./";
+import { appContext } from "../context";
 
 const Feed = () => {
-  const [selectedCategory, setSelectedCategory] = useState("New");
   const [videos, setVideos] = useState(null);
+  const {selectedCategory, setSelectedCategory} = useContext(appContext);
+
+
+  // const {history, setHistory} = useContext(appContext);
+  let localHistoryData = localStorage.getItem("history"); // null | undefined
+  // if(localHistoryData) {
+  //     localHistoryData = JSON.parse(localHistoryData);
+  //     setHistory(localHistoryData);
+  // }else{
+  //     localStorage.setItem("history", JSON.stringify([]));
+  // }
 
   useEffect(() => {
     setVideos(null);
@@ -18,7 +29,7 @@ const Feed = () => {
   return (
     <Stack sx={{ flexDirection: { sx: "column", md: "row" } }}>
       <Box sx={{ height: { sx: "auto", md: "92vh" }, borderRight: "1px solid #3d3d3d", px: { sx: 0, md: 2 } }}>
-        <Sidebar selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+        <Sidebar />
         
         <Typography className="copyright" variant="body2" sx={{ mt: 1.5, color: "#fff", }}>
           Copyright © 2022 JSM Media
