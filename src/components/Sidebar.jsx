@@ -45,6 +45,22 @@ const Categories = () => {
           Favourite
         </span>
       </button>
+
+      <button
+        onClick={() => {
+          navigate("/library")
+        }}
+        className="category-btn"
+        style={{
+          background: "white",
+          color: "black",
+          backgroundColor: "white",
+        }}
+      >
+        <span >
+          Library
+        </span>
+      </button>
     {categories.map((category) => (
       <button
         className="category-btn"

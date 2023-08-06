@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 
 import { ChannelDetail, VideoDetail, SearchFeed, Navbar, Feed , History, Favorites} from './components';
 import ContextProvider from "./context";
+import Library from "./components/Library";
 const App = () => {
   let localHistoryData = localStorage.getItem("history"); // null | undefined
   if(!localHistoryData) {
@@ -22,6 +23,7 @@ const App = () => {
           <Route path='/video/:id' element={<VideoDetail />} />
           <Route path='/history' element={<History />} />
           <Route path='/favourite' element={<Favorites />} />
+          <Route path='/Library' element={<Library />} />
           <Route path='/channel/:id' element={<ChannelDetail />} />
           <Route path='/search/:searchTerm' element={<SearchFeed />} />
         </Routes>
