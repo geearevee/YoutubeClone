@@ -29,7 +29,21 @@ const Categories = () => {
         <span >
           History
         </span>
-        
+      </button>
+    <button
+        onClick={() => {
+          navigate("/favourite")
+        }}
+        className="category-btn"
+        style={{
+          background: "white",
+          color: "black",
+          backgroundColor: "white",
+        }}
+      >
+        <span >
+          Favourite
+        </span>
       </button>
     {categories.map((category) => (
       <button

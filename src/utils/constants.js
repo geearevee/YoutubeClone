@@ -17,9 +17,9 @@ export const logo = 'https://betanews.com/wp-content/uploads/2017/08/new-youtube
 // { name: 'New', icon: <HomeIcon />, },
 // { name: 'History', icon: <HomeIcon />, },
 // { name: 'Library', icon: <HomeIcon />, },
+// { name: 'Favorites', icon: <HomeIcon />, },
 export const categories = [
  
-  { name: 'Favorites', icon: <HomeIcon />, },
   { name: 'JS Mastery', icon: <CodeIcon />, },
   { name: 'Coding', icon: <CodeIcon />, },
   { name: 'ReactJS', icon: <CodeIcon />, },

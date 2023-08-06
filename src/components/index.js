@@ -10,3 +10,4 @@ export { default as SearchFeed } from './SearchFeed';
 export { default as Videos } from './Videos';
 export { default as Sidebar } from './Sidebar';
 export { default as History } from './History';
+export { default as Favorites } from './Favorites';

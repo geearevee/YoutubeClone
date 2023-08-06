@@ -4,11 +4,13 @@ export const appContext = createContext()
 
 const ContextProvider = ({ children }) => {
     const [history, setHistory] = useState([]);
+    const [favourites, setFavourites] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState("New");
 
     const value = {
         history, setHistory,
-        selectedCategory, setSelectedCategory
+        selectedCategory, setSelectedCategory,
+        favourites, setFavourites
     }
     return (
         <appContext.Provider value={value}>
@@ -17,5 +19,5 @@ const ContextProvider = ({ children }) => {
     )
 }
 
-export default ContextProvider
+export default ContextProvider;
 

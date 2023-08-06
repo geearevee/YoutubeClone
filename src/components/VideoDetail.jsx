@@ -3,17 +3,41 @@ import { Link, useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
 import { Typography, Box, Stack } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import { Videos, Loader } from "./";
 import { fetchFromAPI } from "../utils/fetchFromAPI";
 
 import { appContext } from "../context";
 
 const VideoDetail = () => {
-  // const { setHistory} = useContext(appContext);
+  console.log("is this videoDetail component rerendering?")
+  // const { favourites, setFavourites} = useContext(appContext);
   const [videoDetail, setVideoDetail] = useState(null);
+  const [isFavourite, setIsFavourite] = useState(false);
   const [videos, setVideos] = useState(null);
   const { id } = useParams();
+  // fuvaourites =[ {id : "", vide}, snippits, stastistico]
+  
+   
+
+  /*
+    when the funcion starts running we will check if the current video is favourite or not by checking the list.
+    if favrourited => the liked status icon shold be displayed
+    if not in faovourite list => normal icon shold be displayed
+  */
+
+  function makeFavourite () {
+      let prevValue = JSON.parse(localStorage.getItem("favourites"));
+      localStorage.setItem("favourites", JSON.stringify([...prevValue, videoDetail]))
+      setIsFavourite(true);
+    }
+    
+    function makeUnFavroutie () {
+      let prevValue = JSON.parse(localStorage.getItem("favourites"));
+      let filteredPrevValue = prevValue?.filter((item) => item.id !== id);
+      localStorage.setItem("favourites", JSON.stringify([...filteredPrevValue]))
+      setIsFavourite(false);
+  }
 
   useEffect(() => {
     fetchFromAPI(`videos?part=snippet,statistics&id=${id}`)
@@ -27,6 +51,23 @@ const VideoDetail = () => {
     fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`)
       .then((data) => setVideos(data.items))
   }, [id]);
+
+  
+  useEffect(() => {
+      let localFavouriteData = localStorage.getItem("favourites"); // null | undefined
+      localFavouriteData = JSON.parse(localFavouriteData);
+      if(localFavouriteData !== null){
+        const [isInFavourite] = localFavouriteData.filter(item => {
+          if(item.id === id){
+            return true;
+          }
+        })
+        console.log(isInFavourite !== undefined,"is in favourite")
+        setIsFavourite(isInFavourite !== undefined ? true : false)
+      }else{
+        setIsFavourite(false)
+      }
+  },[videoDetail])
 
   if(!videoDetail?.snippet) return <Loader />;
 
@@ -48,7 +89,15 @@ const VideoDetail = () => {
                   <CheckCircleIcon sx={{ fontSize: "12px", color: "gray", ml: "5px" }} />
                 </Typography>
               </Link>
+
               <Stack direction="row" gap="20px" alignItems="center">
+                {
+                  isFavourite ? (
+                    <ThumbUpAltIcon color="success" onClick={makeUnFavroutie}/>              
+                    ) : (
+                    <ThumbUpAltIcon color="primary" onClick={makeFavourite}/>              
+                  )
+                }
                 <Typography variant="body1" sx={{ opacity: 0.7 }}>
                   {parseInt(viewCount).toLocaleString()} views
                 </Typography>
