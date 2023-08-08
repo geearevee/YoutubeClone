@@ -15,49 +15,36 @@ const Categories = () => {
       flexDirection: { md: "column" },
     }}
   >
-    <button
-        onClick={() => {
-          navigate("/history")
-        }}
+      <button
         className="category-btn"
+        onClick={() => { navigate("/history");}}
         style={{
-          background: "white",
-          color: "black",
-          backgroundColor: "white",
+          color: "white",
         }}
       >
-        <span >
+        <span style={{ opacity:"0.8" }}>
           History
         </span>
       </button>
-    <button
-        onClick={() => {
-          navigate("/favourite")
-        }}
+      <button
         className="category-btn"
+        onClick={() => { navigate("/favourite");}}
         style={{
-          background: "white",
-          color: "black",
-          backgroundColor: "white",
+          color: "white",
         }}
       >
-        <span >
-          Favourite
+        <span style={{ opacity:"0.8" }}>
+          Favorites
         </span>
       </button>
-
       <button
-        onClick={() => {
-          navigate("/library")
-        }}
         className="category-btn"
+        onClick={() => { navigate("/library");}}
         style={{
-          background: "white",
-          color: "black",
-          backgroundColor: "white",
+          color: "white",
         }}
       >
-        <span >
+        <span style={{ opacity:"0.8" }}>
           Library
         </span>
       </button>

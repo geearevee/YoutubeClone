@@ -28,7 +28,7 @@ const Library = () => {
     </div>
     <main style={libraryMain}>
       <h2 style={{color : "white"}}>Library</h2>
-      <h2 style={{color : "white"}}>Favorites</h2>
+     
       <Favorites/>
       <h2 style={{color : "white"}}>History</h2>
       <History/>
